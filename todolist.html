@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="acc.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="new-task" placeholder="To Add a list... ">
+        <button id="add-task">Add</button>
+        <ul id="task-list"></ul>
+    </div>
+    <script>
+        // scripts.js
+
+document.addEventListener('DOMContentLoaded', () => {
+    const newTaskInput = document.getElementById('new-task');
+    const addTaskButton = document.getElementById('add-task');
+    const taskList = document.getElementById('task-list');
+
+    // Function to add a new task
+    function addTask() {
+        const taskText = newTaskInput.value.trim();
+        if (taskText === '') {
+            alert('Please enter a task.');
+            return;
+        }
+
+        const listItem = document.createElement('li');
+        listItem.textContent = taskText;
+
+        const deleteButton = document.createElement('span');
+        deleteButton.textContent = '✖';
+        deleteButton.classList.add('delete');
+        deleteButton.addEventListener('click', () => {
+            taskList.removeChild(listItem);
+        });
+
+        listItem.appendChild(deleteButton);
+        taskList.appendChild(listItem);
+
+        newTaskInput.value = '';
+        newTaskInput.focus();
+    }
+
+    // Event listener for the add task button
+    addTaskButton.addEventListener('click', addTask);
+
+    // Event listener for pressing Enter in the input field
+    newTaskInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addTask();
+        }
+    });
+});
+
+    </script>
+</body>
+</html>
